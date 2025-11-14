@@ -1,6 +1,6 @@
-# Certified Cloud Native Platform Engineering Associate (CPNA) Advanced Study Guide
+# Certified Cloud Native Platform Engineering Associate (CNPA) Advanced Study Guide
 
-This advanced study guide is organized by the CPNA exam domains and their key competencies. It provides a comprehensive overview of essential concepts in platform engineering, with an emphasis on modern Kubernetes-based platforms and DevOps practices. Each section aligns with the official CPNA domains, integrating recent topics such as HEART metrics, SBOM attestations, Helm commands, Kubernetes core components, and OpenTofu (Terraform's open-source fork). The guide is structured for clarity, with headings for each domain and subheadings for specific competencies, ensuring an easy-to-follow learning path.
+This advanced study guide is organized by the CNPA exam domains and their key competencies. It provides a comprehensive overview of essential concepts in platform engineering, with an emphasis on modern Kubernetes-based platforms and DevOps practices. Each section aligns with the official CNPA domains, integrating recent topics such as HEART metrics, SBOM attestations, Helm commands, Kubernetes core components, and OpenTofu (Terraform's open-source fork). The guide is structured for clarity, with headings for each domain and subheadings for specific competencies, ensuring an easy-to-follow learning path.
 
 ## Table of Contents
 
@@ -320,7 +320,7 @@ Other platforms might offer direct REST APIs or CLI tools. For example, an inter
 
 A critical aspect is discoverability – which is where internal developer portals shine. They list what capabilities are available and how to use them (documentation). So, platform APIs don't necessarily mean a raw HTTP API (though it could); it encompasses any interface that developers use to interact with the platform programmatically.
 
-From the perspective of the CPNA exam, understanding that CRDs and Kubernetes extension points are one powerful way to implement platform APIs (the platform itself becomes extensible) is likely key. It ties back to IDP concepts (discussed later in Developer Experience). In summary, platform APIs allow internal platform capabilities to be consumed in a self-serve, programmatic way, reducing friction and accelerating development.
+From the perspective of the CNPA exam, understanding that CRDs and Kubernetes extension points are one powerful way to implement platform APIs (the platform itself becomes extensible) is likely key. It ties back to IDP concepts (discussed later in Developer Experience). In summary, platform APIs allow internal platform capabilities to be consumed in a self-serve, programmatic way, reducing friction and accelerating development.
 
 ## Infrastructure Provisioning with Kubernetes (and Beyond)
 
@@ -330,7 +330,7 @@ This competency is about how infrastructure (compute instances, clusters, networ
 
 **Infrastructure as Code (IaC) tools:** The traditional approach to provisioning infra (outside of K8s) is using tools like Terraform, which is declarative and cloud-agnostic. Terraform configurations (HCL files) describe desired state of infrastructure. The Terraform engine calculates a plan and applies changes via providers (AWS, Azure, etc.). Platform engineers often maintain Terraform modules or scripts to provision foundational infrastructure (networks, Kubernetes clusters themselves, CI servers). Terraform can be wrapped in pipelines or service catalogs for dev teams when they need infra outside what Kubernetes can easily do. However, Terraform historically is not continuous – you run it on demand (though you could run in a pipeline regularly). That's where something like Crossplane aims to provide continuous reconciliation on infra, bringing K8s-style operations to it.
 
-**OpenTofu (Terraform's Open-Source Fork):** HashiCorp's Terraform moved to a business source license in 2023, which spurred the community to create a truly open fork called OpenTofu. OpenTofu is basically Terraform with an open governance under the Linux Foundation, maintaining compatibility with Terraform's language and providers. For the purposes of CPNA, one should recognize that OpenTofu is an Infrastructure-as-Code tool allowing you to define and provision cloud resources using declarative configuration and workflows akin to Terraform. It uses the HashiCorp Configuration Language (HCL) and supports all the same providers to manage multi-cloud or on-prem infra in a unified way. The main difference is licensing and community governance – OpenTofu remains fully open source (MPL 2.0), community-driven, while Terraform (upstream) has usage restrictions under the BSL. From a platform engineering perspective, OpenTofu/Terraform knowledge is important for provisioning base infrastructure (like networks, clusters, DBaaS instances) that your platform runs on or integrates with. It can also be offered to developers as a service (with sane defaults and modules) for certain tasks.
+**OpenTofu (Terraform's Open-Source Fork):** HashiCorp's Terraform moved to a business source license in 2023, which spurred the community to create a truly open fork called OpenTofu. OpenTofu is basically Terraform with an open governance under the Linux Foundation, maintaining compatibility with Terraform's language and providers. For the purposes of CNPA, one should recognize that OpenTofu is an Infrastructure-as-Code tool allowing you to define and provision cloud resources using declarative configuration and workflows akin to Terraform. It uses the HashiCorp Configuration Language (HCL) and supports all the same providers to manage multi-cloud or on-prem infra in a unified way. The main difference is licensing and community governance – OpenTofu remains fully open source (MPL 2.0), community-driven, while Terraform (upstream) has usage restrictions under the BSL. From a platform engineering perspective, OpenTofu/Terraform knowledge is important for provisioning base infrastructure (like networks, clusters, DBaaS instances) that your platform runs on or integrates with. It can also be offered to developers as a service (with sane defaults and modules) for certain tasks.
 
 **Selecting the right tool:** There's often a question – do we manage infra via K8s (operators) or via IaC pipelines (Terraform)? Each has pros/cons:
 - **Kubernetes operators (like Crossplane)** enable a GitOps, unified approach, and can react in real-time to drift or changes. They also expose infra as CRDs which can be easier to compose with apps. However, not all resources might have stable operators available, and giving developers CRDs to create, say, an AWS VPC might be too low-level or too much responsibility.
@@ -413,7 +413,7 @@ Developer portals (like Backstage, or an internal web UI built in-house) are ess
 
 A portal greatly helps platform adoption because it reduces the learning curve. If a platform were only exposed via raw CLI and configs, some devs might struggle or stick to old ways. A polished portal invites them in. It's also a marketing tool internally – showcasing features and reliability of the platform. Some organizations treat their internal portal like a product with release notes, feature announcements, etc., which fosters engagement.
 
-From a CPNA perspective, knowing Backstage is a prime example is useful, but the key is understanding why a portal matters: it improves developer experience (DX).
+From a CNPA perspective, knowing Backstage is a prime example is useful, but the key is understanding why a portal matters: it improves developer experience (DX).
 
 We should mention that Backstage's mission is to be the "UX layer" for the infrastructure engineers, to give the best developer experience without needing to be experts in every tool (they compare it to Kubernetes for DX – providing a standard toolbox for the user experience layer of infrastructure). This encapsulates the rationale for portals.
 
@@ -430,7 +430,7 @@ While these are advanced topics, platform engineers should be aware that AI/ML c
 
 However, an IDP must incorporate AI carefully – it should not overwhelm or mislead developers. The goal remains improving DX, so AI features are usually assistive and optional.
 
-The CPNA including this likely expects an awareness of these modern trends rather than deep implementation details. It underscores that platform engineering is evolving with technology.
+The CNPA including this likely expects an awareness of these modern trends rather than deep implementation details. It underscores that platform engineering is evolving with technology.
 
 ## Measuring Developer Experience and Platform Success (HEART framework)
 
@@ -505,7 +505,7 @@ When planning platform features, tying them to one of these outcomes is a good p
 
 It's also worth noting that these metrics should be stratified properly: e.g., measure per application or per team as needed and then aggregate. Outliers can skew data – median is often used for lead time to avoid a single slow change distorting average.
 
-Some organizations add a fifth metric like Availability or Reliability (though MTTR covers a part of that). Others track Change Volume (but that's essentially deployment frequency). The four are widely accepted, so CPNA likely sticks to them.
+Some organizations add a fifth metric like Availability or Reliability (though MTTR covers a part of that). Others track Change Volume (but that's essentially deployment frequency). The four are widely accepted, so CNPA likely sticks to them.
 
 **Example scenario**: Before platform, a team deploys monthly (freq ~0.03 per day), lead time is 1-2 weeks (dev complete to prod), change failure maybe 30% (because deployments are big bang, lots can go wrong), and MTTR is a day (because manual fixes). After platform adoption (with CI/CD, smaller batches, canaries), perhaps that team now deploys daily (freq ~1.0 per day), lead time 1 day or a few hours, failure rate 5%, and MTTR 1 hour. Those improvements directly translate to more business agility and less downtime.
 
@@ -523,7 +523,7 @@ If both are good (fast deliveries, happy devs), your platform is on the right tr
 - **Fast pipeline but devs unhappy** could mean maybe the platform forces them to do things in a way they don't like or they feel unsupported even if metrics are okay (maybe toil in other areas not captured by DORA).
 - **Happy devs but slow delivery** could mean devs like the platform features but maybe there are organizational bottlenecks outside platform (e.g., manual approvals or too much process still).
 
-Remember also to measure business impact where possible: e.g., did faster deployment correlate with more features delivered or higher customer satisfaction for external users? That might be beyond CPNA scope, but in real world connecting platform metrics to business KPIs (like revenue from new features, or uptime SLA adherence) elevates the platform's value proposition.
+Remember also to measure business impact where possible: e.g., did faster deployment correlate with more features delivered or higher customer satisfaction for external users? That might be beyond CNPA scope, but in real world connecting platform metrics to business KPIs (like revenue from new features, or uptime SLA adherence) elevates the platform's value proposition.
 
 In conclusion, Measuring Your Platform is about creating feedback loops. It's not just about proving value, but also identifying areas for improvement. Continuous improvement is a DevOps principle and platform teams should adopt it: use metrics to find friction points, iterate on the platform, and watch metrics improve, then repeat. A data-driven approach ensures the platform is solving the right problems and evolving based on evidence, not just assumptions.
 
